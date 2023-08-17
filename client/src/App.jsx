@@ -6,6 +6,11 @@ import {
   Landing,
   Login,
   Register,
+  AddJob,
+  Stats,
+  AllJobs,
+  Profile,
+  Admin,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -26,6 +31,28 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <AddJob />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+          {
+            path: "admin",
+            element: <Admin />,
+          },
+          {
+            path: "all-jobs",
+            element: <AllJobs />,
+          },
+          {
+            path: "stats",
+            element: <Stats />,
+          },
+        ],
       },
     ],
   },
