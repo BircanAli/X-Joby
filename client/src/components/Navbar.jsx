@@ -2,15 +2,14 @@ import Wrapper from "../assets/wrappers/Navbar";
 import { FaAlignLeft } from "react-icons/fa";
 import Logo from "./Logo";
 import { useDashboardContext } from "../pages/DashboardLayout";
-import SmallSidebar from "./SmallSidebar";
 
 const Navbar = () => {
-  const { toggleSidebar, showSidebar } = useDashboardContext();
+  const { toggleSidebar } = useDashboardContext();
   return (
     <Wrapper>
       <div className="nav-center">
         <button onClick={toggleSidebar} type="button" className="toggle-btn">
-          {!showSidebar ? <FaAlignLeft /> : <SmallSidebar />}
+          <FaAlignLeft />
         </button>
         <div>
           <Logo />
