@@ -27,3 +27,5 @@ const links = [
     icon: <MdAdminPanelSettings />,
   },
 ];
+
+export default links;
