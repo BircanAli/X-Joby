@@ -10,7 +10,7 @@ const Navbar = () => {
     <Wrapper>
       <div className="nav-center">
         <button onClick={toggleSidebar} type="button" className="toggle-btn">
-          {showSidebar ? <FaAlignLeft /> : <SmallSidebar />}
+          {!showSidebar ? <FaAlignLeft /> : <SmallSidebar />}
         </button>
         <div>
           <Logo />

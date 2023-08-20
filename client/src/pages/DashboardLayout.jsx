@@ -35,7 +35,7 @@ const DashboardLayout = () => {
     >
       <Wrapper>
         <main className="dashboard">
-          <SmallSidebar  />
+          <SmallSidebar />
           <BigSidebar />
           <Navbar />
           <div className="dashboard-page"></div>
@@ -46,5 +46,5 @@ const DashboardLayout = () => {
   );
 };
 
-export const useDashboardContext = () => useContext(DashboardContext)
+export const useDashboardContext = () => useContext(DashboardContext);
 export default DashboardLayout;
