@@ -1,7 +1,20 @@
-console.log("server is working...ssss");
+import express from "express";
+import morgan from "morgan";
+import * as dotenv from "dotenv";
+dotenv.config()
+const app = express()
+const port = process.env.PORT || 5100
 
-import { value } from "./test-named.js";
-import someValue from "./test-default.js";
+if(process.env.NODE_ENV === "development"){
+    app.use(morgan("dev"))
+}
 
-console.log(value);
-console.log(someValue);
+app.use(express.json())
+
+app.get('/',(req,res)=>{res.send("server started")})
+
+app.post('/',(req,res)=>{
+    console.log(req);
+   res.json({message:"data received",data:req.body})
+})
+app.listen(port,()=>console.log(`server started at port ${port}`))
