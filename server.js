@@ -93,4 +93,9 @@ app.use("*", (req, res) => {
   res.status(404).json({ msg: "not found" });
 });
 
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).json({ msg: "there is error" });
+});
+
 app.listen(port, () => console.log(`server started at port ${port}`));
