@@ -2,22 +2,10 @@ import express from "express";
 import morgan from "morgan";
 import * as dotenv from "dotenv";
 import jobRouter from "./routes/jobRouter.js";
+import mongoose from "mongoose";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5100;
-
-try {
-  const response = await fetch(
-    "https://www.course-api.com/react-useReducer-cart-project"
-  );
-  const carData = await response.json();
-} catch (error) {
-  console.log(error);
-}
-
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
 
 app.use(express.json());
 
@@ -40,4 +28,14 @@ app.use((err, req, res, next) => {
   res.status(500).json({ msg: "there is error" });
 });
 
-app.listen(port, () => console.log(`server started at port ${port}`));
+try {
+  await mongoose.connect(process.env.MONGODB_URL);
+  app.listen(port, () => console.log(`server started at port ${port}`));
+} catch (error) {
+  console.log(error);
+  process.exit(1);
+}
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
