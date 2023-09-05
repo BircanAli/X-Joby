@@ -3,6 +3,7 @@ import { BadRequestError, NotFoundError } from "../errors/customError.js";
 import { JOB_STATUS, JOB_TYPE } from "../utils/constants.js";
 import mongoose from "mongoose";
 import Job from "../models/JobModels.js";
+import User from "../models/UserModels.js";
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -39,4 +40,34 @@ export const validateJobParam = withValidationErrors([
     const job = await Job.findById(value);
     if (!job) throw new NotFoundError(`no job with id ${value}`);
   }),
+]);
+
+export const validateUser = withValidationErrors([
+  body("name").notEmpty().withMessage("user name is required"),
+  body("email")
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    // .custom((value) => {
+    //   return String(value)
+    //     .toLowerCase()
+    //     .match(
+    //       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    //     );
+    // })
+    .withMessage("please provide valid email")
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) {
+        throw new BadRequestError("email already exists");
+      }
+    }),
+
+  body("password")
+    .notEmpty()
+    .withMessage("password is required")
+    .isLength({ ming: 8 })
+    .withMessage("minimum 8 character"),
+  body("lastName").notEmpty().withMessage("last name required"),
+  body("location").notEmpty().withMessage("location required"),
 ]);
