@@ -42,7 +42,7 @@ export const validateJobParam = withValidationErrors([
   }),
 ]);
 
-export const validateUser = withValidationErrors([
+export const validateRegisterUser = withValidationErrors([
   body("name").notEmpty().withMessage("user name is required"),
   body("email")
     .notEmpty()
@@ -70,4 +70,15 @@ export const validateUser = withValidationErrors([
     .withMessage("minimum 8 character"),
   body("lastName").notEmpty().withMessage("last name required"),
   body("location").notEmpty().withMessage("location required"),
+]);
+
+export const validateLoginUser = withValidationErrors([
+  body("email")
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("please provide valid email"),
+  body("password")
+    .notEmpty()
+    .withMessage("password is required"),
 ]);

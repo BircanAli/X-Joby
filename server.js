@@ -29,7 +29,9 @@ app.use(errorHandlerMiddleware);
 
 try {
   await mongoose.connect(process.env.MONGODB_URL);
-  app.listen(port, () => console.log(`server started at port ${port}`));
+  app.listen(port, () =>
+    console.log(`server started at port http://localhost:${port}/`)
+  );
 } catch (error) {
   console.log(error);
   process.exit(1);
