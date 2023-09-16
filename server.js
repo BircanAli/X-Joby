@@ -6,6 +6,8 @@ import jobRouter from "./routes/jobRouter.js";
 import mongoose from "mongoose";
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import authRouter from "./routes/authorRouter.js";
+import { authenticateUser } from "./middleware/authMiddleware.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -13,12 +15,17 @@ const app = express();
 const port = process.env.PORT || 5100;
 
 app.use(express.json());
+app.use(cookieParser());
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 app.get("/", (req, res) => {
   res.send("server started");
 });
 
-app.use("/api/v1/jobs", jobRouter);
+app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/auth", authRouter);
 
 app.use("*", (req, res) => {
@@ -35,8 +42,4 @@ try {
 } catch (error) {
   console.log(error);
   process.exit(1);
-}
-
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
 }
