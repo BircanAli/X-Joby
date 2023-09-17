@@ -1,13 +1,14 @@
 import "express-async-errors";
 import express from "express";
 import morgan from "morgan";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
 import jobRouter from "./routes/jobRouter.js";
-import mongoose from "mongoose";
-import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import authRouter from "./routes/authorRouter.js";
+import userRouter from "./routes/userRouter.js";
+import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
-import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
+app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/auth", authRouter);
 
 app.use("*", (req, res) => {

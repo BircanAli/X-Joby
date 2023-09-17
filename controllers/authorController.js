@@ -29,8 +29,16 @@ export const login = async (req, res) => {
   res.cookie("token", token, {
     httpOnly: true,
     expires: Date.UTC(Date.now() + oneDay),
-    secure:process.env.NODE_ENV === "production"
+    secure: process.env.NODE_ENV === "production",
   });
 
   res.status(StatusCodes.OK).json({ msg: "user logged in" });
+};
+
+export const logout = async (req, res) => {
+  res.cookie("token", "logout", {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.status(StatusCodes.OK).json({ msg: "logged out" });
 };
