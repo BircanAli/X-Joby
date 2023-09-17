@@ -25,6 +25,9 @@ if (process.env.NODE_ENV === "development") {
 app.get("/", (req, res) => {
   res.send("server started");
 });
+app.use("/api/v1/test",(req,res)=>{
+  res.json({msg:"test route"})
+})
 
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
