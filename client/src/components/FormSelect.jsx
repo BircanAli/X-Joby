@@ -1,6 +1,3 @@
-import React from "react";
-import { JOB_STATUS } from "../../../utils/constants";
-
 const FormSelect = ({ name, labelText, list, defaultValue = "" }) => {
   return (
     <div className="form-row">
