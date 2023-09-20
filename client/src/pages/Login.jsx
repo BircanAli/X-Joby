@@ -1,18 +1,52 @@
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import Logo from "../components/Logo";
 import FormRow from "../components/FormRow";
-import { Link } from "react-router-dom";
+import {
+  Form,
+  Link,
+  redirect,
+  useNavigation,
+  useActionData,
+} from "react-router-dom";
+import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  const errorMessage = { msg: "" };
+
+  if (data.password.length < 3) {
+    errorMessage.msg = "password too short";
+    return errorMessage;
+  }
+
+  try {
+    await customFetch.post("/auth/login", data).then((response) => {
+      toast.success(response?.data?.msg); //success message from server response
+    });
+
+    return redirect("/dashboard");
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
+};
 
 const Login = () => {
+  const errors = useActionData();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
   return (
     <Wrapper>
-      <form className="from">
+      <Form method="post" className="from">
         <Logo />
         <h4>login</h4>
+        {errors?.msg && <p style={{ color: "red" }}>{errors.msg}</p>}
         <FormRow type="email" name="email" defaultValue="birdzhan@gmail.com" />
         <FormRow type="password" name="password" defaultValue="secret123" />
-        <button type="submit" className="btn btn-block">
-          submit
+        <button type="submit" className="btn btn-block" disabled={isSubmitting}>
+          {isSubmitting ? "submitting" : "submit"}
         </button>
         <button type="button" className="btn btn-block">
           take a look
@@ -23,7 +57,7 @@ const Login = () => {
             Register
           </Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
   );
 };
