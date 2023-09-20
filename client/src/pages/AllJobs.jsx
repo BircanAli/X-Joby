@@ -1,6 +1,6 @@
+import Wrapper from "../assets/wrappers/DashboardFormPage";
+
 const AllJobs = () => {
-  return (
-    <div>AllJobs</div>
-  )
-}
-export default AllJobs
+  return <Wrapper>AllJobs</Wrapper>;
+};
+export default AllJobs;
