@@ -19,9 +19,9 @@ export const action = async ({ request }) => {
       .post("/jobs/", data)
       .then((response) => toast(response?.msg));
 
-    return redirect("/dashboard");
+    return redirect("all-jobs");
   } catch (error) {
-    return toast("try again");
+    return toast(error?.response?.data?.msg);
   }
 };
 
@@ -58,7 +58,7 @@ const AddJob = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn btn-block form-btn"
+            className="btn btn-block form-btn ${}"
           >
             {isSubmitting ? "submitting..." : "submit"}
           </button>
