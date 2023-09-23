@@ -7,3 +7,4 @@ export { default as FormSelect } from "./FormSelect";
 export { default as JobsContainer } from "./JobsContainer";
 export { default as SearchContainer } from "./JobsContainer";
 export { default as StatItem } from "./JobsContainer";
+export { default as SubmitBtn } from "./SubmitBtn";

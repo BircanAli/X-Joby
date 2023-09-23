@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
 dotenv.config();
-import cloudinary from "cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 // routers
 import jobRouter from "./routes/jobRouter.js";
 import authRouter from "./routes/authorRouter.js";
@@ -20,6 +20,7 @@ import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
 
 //cloudinary API for images
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY,
