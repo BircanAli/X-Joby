@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
 dotenv.config();
+import cloudinary from "cloudinary";
 // routers
 import jobRouter from "./routes/jobRouter.js";
 import authRouter from "./routes/authorRouter.js";
@@ -17,6 +18,14 @@ import path from "path";
 // middleware
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 import { authenticateUser } from "./middleware/authMiddleware.js";
+
+//cloudinary API for images
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 //make public folder accessible
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, "./public")));
