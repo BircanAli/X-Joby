@@ -5,6 +5,7 @@ import Logo from "./Logo";
 
 const BigSidebar = () => {
   const { showSidebar } = useDashboardContext();
+
   return (
     <Wrapper>
       <div

@@ -3,6 +3,7 @@ import Wrapper from "../assets/wrappers/Dashboard";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
 import { createContext, useContext, useState } from "react";
 import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
 
 export const loader = async () => {
   try {
@@ -35,6 +36,7 @@ const DashboardLayout = ({ isDarkThemeEnabled }) => {
   const logoutUser = async () => {
     try {
       await customFetch.get("/auth/logout");
+      toast.success("logged out");
       return navigate("/login");
     } catch (error) {
       return error;
