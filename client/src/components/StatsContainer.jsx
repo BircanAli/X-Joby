@@ -3,7 +3,6 @@ import Wrapper from "../assets/wrappers/StatsContainer";
 import StatItem from "./StatsItem.jsx";
 
 const StatsContainer = ({ defaultStats }) => {
-  console.log(defaultStats);
   const stats = [
     {
       title: "pending application",
