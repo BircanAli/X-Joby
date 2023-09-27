@@ -8,18 +8,21 @@ import { createContext } from "react";
 import { toast } from "react-toastify";
 
 export const loader = async ({ request }) => {
-  const params = Object.fromEntries([
-    ...new URL(request.url).searchParams.entries(),
-  ]);
-
   try {
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
+
     const { data } = await customFetch.get("/jobs", {
       params,
     });
 
-    return { data, searchValues: { ...params } };
+    return {
+      data,
+      searchValues: { ...params },
+    };
   } catch (error) {
-    toast.error(error?.response?.data?.msg);
+    toast.error(error.response.data.msg);
     return error;
   }
 };
