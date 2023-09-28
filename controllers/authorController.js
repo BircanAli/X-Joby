@@ -28,7 +28,7 @@ export const login = async (req, res) => {
   const oneDay = 1000 * 60 * 60 * 24;
   res.cookie("token", token, {
     httpOnly: true,
-    expires: Date.UTC(Date.now() + oneDay),
+    expires: new Date(Date.now() + oneDay),
     secure: process.env.NODE_ENV === "production",
   });
 
