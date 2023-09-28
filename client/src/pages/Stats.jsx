@@ -12,21 +12,15 @@ const statsQuery = {
   },
 };
 
-export const loader = async () => {
+export const loader = (queryClient) => async () => {
+  const data = await queryClient.ensureQueryData(statsQuery);
   return null;
 };
 
 const Stats = () => {
-  // const stats = useLoaderData();
-  // const { defaultStats, monthlyApplications } = stats;
-
-  const { isLoading, isError, data } = useQuery(statsQuery);
-
-  if (isLoading) return <h4>loading page</h4>;
+  const { data } = useQuery(statsQuery);
   const { defaultStats, monthlyApplications } = data;
-  if (isError) return <h4>there is error</h4>;
 
-  return <h1>react query</h1>;
   return (
     <>
       <StatsContainer defaultStats={defaultStats} />

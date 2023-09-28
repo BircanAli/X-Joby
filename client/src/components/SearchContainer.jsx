@@ -5,9 +5,9 @@ import { JOB_TYPE, JOB_STATUS, JOB_SORT_BY } from "../../../utils/constants";
 import { useAllJobsContext } from "../pages/AllJobs";
 
 const SearchContainer = () => {
-  const submit = useSubmit();
   const { searchValues } = useAllJobsContext();
   const { search, sort, jobStatus, jobType } = searchValues;
+  const submit = useSubmit();
 
   const debounce = (onChange) => {
     let timeout;
@@ -35,7 +35,7 @@ const SearchContainer = () => {
           />
           <FormSelect
             labelText="job status"
-            name="jobStatus "
+            name="jobStatus"
             list={["all", ...Object.values(JOB_STATUS)]}
             defaultValue={jobStatus}
             onChange={(e) => {
@@ -44,7 +44,7 @@ const SearchContainer = () => {
           />
           <FormSelect
             labelText="job type"
-            name="jobType "
+            name="jobType"
             list={["all", ...Object.values(JOB_TYPE)]}
             defaultValue={jobType}
             onChange={(e) => {
