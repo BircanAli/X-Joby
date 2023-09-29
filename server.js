@@ -1,5 +1,7 @@
 import "express-async-errors";
 import express from "express";
+import helmet from "helmet";
+import ExpressMongoSanitize from "express-mongo-sanitize";
 const app = express();
 import morgan from "morgan";
 import mongoose from "mongoose";
@@ -35,15 +37,17 @@ app.use(express.static(path.resolve(__dirname, "./client/dist")));
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+app.use(ExpressMongoSanitize());
+app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("server started");
 });
-app.use("/api/v1/test", (req, res) => {
-  res.json({ msg: "test route" });
-});
+// app.use("/api/v1/test", (req, res) => {
+//   res.json({ msg: "test route" });
+// });
 
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);

@@ -5,7 +5,7 @@ import { JobsContainer } from "../components";
 import SearchContainer from "../components/SearchContainer";
 import { useContext } from "react";
 import { createContext } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 const AllJobsContext = createContext();
 
